@@ -24,9 +24,6 @@ while True:
     if user_input == "exit":
         break
     
-    messages.append({"role": "user", "content": user_input})
     ai_response = get_ai_response(messages)
-    messages.append({"role": "system", "content": ai_response})
-    
     
     print("AI: " + ai_response)
