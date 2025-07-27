@@ -1,0 +1,22 @@
+[
+    {
+        "no": 1,
+        "eng": "Which of the following descriptions of the image is incorrect?\n\n- (1) Many people are gathered in a large hall.\n- (2) There are bright-colored posters on the wall.\n- (3) People are using laptops.\n- (4) The lights on the ceiling are turned off.",
+        "img": "busan_dive.jpg"
+    },
+    {
+        "no": 2,
+        "eng": "Which of the following descriptions of the image is incorrect?\n- (1) It shows the inside of a café.\n- (2) One of the walls is yellow.\n- (3) Two people are serving.\n- (4) The outside is visible through the windows.",
+        "img": "local_stitch_terrarosa.jpg"
+    },
+    {
+        "no": 3,
+        "eng": "Which of the following descriptions of the image is incorrect?\n- (1) People are chatting in a cafe.\n- (2) The blue sky is visible through the windows.\n- (3) The floor is finished with wood.\n- (4) Several lights are installed on the ceiling.",
+        "img": "seolleung_terrarosa.jpg"
+    },
+    {
+        "no": 4,
+        "eng": "Which of the following descriptions of the image is incorrect?\n- (1) There are several people on the boat.\n- (2) A yellow statue is at the front of the boat.\n- (3) The boat is docked on the water.\n- (4) The operator is wearing a red and white striped shirt.",
+        "img": "testImg.jpg"
+    }
+]
