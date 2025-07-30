@@ -1,4 +1,4 @@
-from gpt_functions import get_current_time, tools
+from gpt_functions import get_current_time, tools, get_yf_stock_info
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -49,22 +49,13 @@ if user_input := st.chat_input():    # 사용자 입력 받기
                 func_result = get_current_time(timezone=arguments['timezone'])
             elif tool_name == "get_yf_stock_info":
                 func_result = get_yf_stock_info(ticker=arguments['ticker'])
-            elif tool_name == "get_yf_stock_history":  # get_yf_stock_history 함수 호출
-                func_result = get_yf_stock_history(
-                    ticker=arguments['ticker'], 
-                    period=arguments['period']
-                )
-            elif tool_name == "get_yf_stock_recommendations":  # get_yf_stock_recommendations 함수 호출
-                func_result = get_yf_stock_recommendations(
-                    ticker=arguments['ticker']
-                )
-
+                
             st.session_state.messages.append({
-                "role": "function",
-                "tool_call_id": tool_call_id,
-                "name": tool_name,
-                "content": func_result,
-            })
+                    "role": "function",
+                    "tool_call_id": tool_call_id,
+                    "name": tool_name,
+                    "content": func_result,
+                })
 
 
         st.session_state.messages.append({"role": "system", "content": "이제 주어진 결과를 바탕으로 답변할 차례다."}) 
