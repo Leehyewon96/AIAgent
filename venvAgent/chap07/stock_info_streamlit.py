@@ -10,13 +10,19 @@ api_key = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI(api_key=api_key)
 
-def get_ai_response(messages, tools=None):
+def get_ai_response(messages, tools=None, stream=True):
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
         tools=tools,
+        stream=stream,
     )
-    return response
+    
+    if stream:
+        for chunk in response:
+            yield chunk
+    else:
+        return response
 
 st.title("💬 Chatbot")
 
@@ -35,10 +41,25 @@ if user_input := st.chat_input():
     st.chat_message("user").write(user_input)
     
     ai_response = get_ai_response(st.session_state.messages, tools=tools)
-    ai_message = ai_response.choices[0].message
-    print(ai_message)
+    # print(ai_message)
     
-    tool_calls = ai_message.tool_calls
+    content = ''
+    tool_calls = None
+    
+    with st.chat_message("assistant").empty():
+        for chunk in ai_response:
+            content_chunk = chunk.choices[0].delta.content 
+            if content_chunk:
+                print(content_chunk, end="")
+                content+=content_chunk
+                st.markdown(content)
+        
+    print('===============')
+    print(content)
+    
+    # ai_message = ai_response.choices[0].message
+    
+    # tool_calls = ai_message.tool_calls
     if tool_calls:
         for tool_call in tool_calls:
             tool_name = tool_call.function.name
@@ -72,9 +93,9 @@ if user_input := st.chat_input():
 
     st.session_state.messages.append({
         "role": "assistant",
-        "content": ai_message.content
+        "content": content #ai_message.content
     })
     
-    print("AI\t: " + ai_message.content)
-    st.chat_message("assistant").write(ai_message.content)
+    print("AI\t: " + content)#ai_message.content)
+    # st.chat_message("assistant").write(ai_message.content)
     
